@@ -1,8 +1,5 @@
 package jshooter;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,17 +28,6 @@ public class Application {
 		LOG.info("Launching application ...");
 
 		initializeSpring(args);
-		initializeUi();
-	}
-
-	private static void initializeUi() {
-		LOG.info("Setting LookAndFeel to system default");
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			LOG.warn("Could not set LookAndFeel to system default", e);
-		}
 	}
 
 	private static void initializeSpring(String[] args) {
