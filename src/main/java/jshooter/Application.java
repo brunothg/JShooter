@@ -9,8 +9,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.github.brunothg.swing.mvp.annotation.EnableSwingMVP;
 
-import jshooter.config.ApplicationInfo;
-
 /**
  * Application starting point. Setting up spring-context and other initial
  * stuff.
@@ -33,10 +31,6 @@ public class Application {
 
 	private static void initializeSpring(String[] args) {
 		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(false).run(args);
-
-		System.out.println(ctx.getBean(ApplicationInfo.class).getBuildTimestamp());
-		System.out.println(ctx.getBean(ApplicationInfo.class).getVersion());
-		System.out.println(ctx.getBean(ApplicationInfo.class).getBuildTimestampDate());
 	}
 
 	public static ApplicationContext getApplicationContext() {
