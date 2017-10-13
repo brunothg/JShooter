@@ -1,5 +1,7 @@
 package jshooter;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.github.brunothg.swing.mvp.annotation.EnableSwingMVP;
+
+import jshooter.config.UserProperties;
 
 /**
  * Application starting point. Setting up spring-context and other initial
@@ -27,10 +31,26 @@ public class Application {
 		LOG.info("Launching application ...");
 
 		initializeSpring(args);
+		registerShotdownHook();
 	}
 
 	private static void initializeSpring(String[] args) {
 		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(false).run(args);
+
+		System.out.println(ctx.getBean(UserProperties.class).getLanguage());
+	}
+
+	private static void registerShotdownHook() {
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				UserProperties userProperties = ctx.getBean(UserProperties.class);
+				try {
+					userProperties.store();
+				} catch (IOException e) {
+					LOG.warn("Could not store user settings", e);
+				}
+			}
+		});
 	}
 
 	public static ApplicationContext getApplicationContext() {
