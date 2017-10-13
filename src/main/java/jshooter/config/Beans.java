@@ -1,4 +1,4 @@
-package jshooter;
+package jshooter.config;
 
 import org.springframework.context.annotation.Configuration;
 
