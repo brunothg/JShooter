@@ -9,6 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.github.brunothg.game.engine.image.InternalImage;
 import com.github.brunothg.swing.mvp.annotation.EnableSwingMVP;
 
 import jshooter.config.UserProperties;
@@ -32,6 +33,7 @@ public class Application {
 
 		initializeSpring(args);
 		registerShotdownHook();
+		InternalImage.setRootFolder("/media/images/");
 	}
 
 	private static void initializeSpring(String[] args) {
