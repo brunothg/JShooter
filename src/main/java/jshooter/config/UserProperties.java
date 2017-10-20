@@ -33,6 +33,10 @@ public class UserProperties {
 		this.language = language;
 	}
 
+	public void setLocale(Locale locale) {
+		setLanguage(locale.toLanguageTag());
+	}
+
 	public void store() throws IOException {
 		Properties properties = new Properties();
 

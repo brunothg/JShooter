@@ -36,8 +36,6 @@ public class Application {
 
 	private static void initializeSpring(String[] args) {
 		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(false).run(args);
-
-		System.out.println(ctx.getBean(UserProperties.class).getLanguage());
 	}
 
 	private static void registerShotdownHook() {
