@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * Klasse für den Zugriff auf die Internationalisierung.
+ * Class internationalization purposes.
  * 
  * @author Marvin Bruns
  *
@@ -46,6 +46,32 @@ public class I18N {
 	}
 
 	/**
+	 * Get all available languages as defined in default language.properties file
+	 * and the language name as defined in the specific language's properties file.
+	 * Should add property <code>language-codes = de, en</code> to default
+	 * properties which specifies all available languages and property
+	 * <code>language-name = German</code> to specific properties which localizes
+	 * the language name.
+	 * 
+	 * @return List with available languages
+	 */
+	public Map<Locale, String> getAvailableLanguages() {
+		HashMap<Locale, String> languages = new HashMap<>();
+
+		String[] codes = getLanguage(Locale.ROOT).getString("language-codes").split(",");
+		for (String code : codes) {
+			code = code.trim();
+
+			Locale locale = Locale.forLanguageTag(code);
+			String name = get("language-name", locale);
+
+			languages.put(locale, (name != null && !name.isEmpty()) ? name : locale.getDisplayLanguage());
+		}
+
+		return languages;
+	}
+
+	/**
 	 * @see ResourceBundle#clearCache()
 	 */
 	public void clearCache() {
@@ -60,7 +86,13 @@ public class I18N {
 
 	public String get(String key, Locale locale) {
 		ResourceBundle language = getLanguage(locale);
-		String value = (language != null) ? language.getString(key) : null;
+
+		String value;
+		try {
+			value = (language != null) ? language.getString(key) : null;
+		} catch (Exception e) {
+			value = null;
+		}
 
 		if (value == null) {
 			if (isGetKeyWehnMissing()) {

@@ -12,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.github.brunothg.swing.mvp.annotation.EnableSwingMVP;
 
 import jshooter.config.UserProperties;
+import jshooter.utils.I18N;
 
 /**
  * Application starting point. Setting up spring-context and other initial
@@ -36,6 +37,8 @@ public class Application {
 
 	private static void initializeSpring(String[] args) {
 		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(false).run(args);
+
+		System.out.println(ctx.getBean(I18N.class).getAvailableLanguages());
 	}
 
 	private static void registerShotdownHook() {
