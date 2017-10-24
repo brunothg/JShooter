@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
  * @author Marvin Bruns
  *
  */
-public class LookAndFeelUtilities {
+public class LookAndFeelUtils {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(LookAndFeelUtilities.class);
+			.getLogger(LookAndFeelUtils.class);
 
 	public static void updateLookAndFeel(String laf)
 			throws ClassNotFoundException, InstantiationException,
