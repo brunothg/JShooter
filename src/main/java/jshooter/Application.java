@@ -20,7 +20,6 @@ import jshooter.config.UserProperties;
 import jshooter.utils.LookAndFeelUtils;
 import jshooter.utils.SplashScreenUtil;
 import jshooter.utils.ThreadUtils;
-import jshooter.utils.UrlUtils;
 
 /**
  * Application starting point. Setting up spring-context and other initial
@@ -42,9 +41,8 @@ public class Application {
 
 		initializeSpring(args);
 
-		// TODO Change splash screen image
-		URL imageURL = UrlUtils.getUrl(
-				"http://montanarifleco.com/wp-content/uploads/2014/09/avr2016.png");
+		URL imageURL = Application.class.getClassLoader()
+				.getResource("media/images/splashscreen.png");
 		SplashScreenUtil.showSplashScreen(imageURL, new Runnable() {
 			public void run() {
 				initializeApplication();
