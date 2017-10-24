@@ -17,9 +17,11 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "custom")
 public class UserProperties {
-	private static final transient Logger LOG = LoggerFactory.getLogger(UserProperties.class);
+	private static final transient Logger LOG = LoggerFactory
+			.getLogger(UserProperties.class);
 
 	private String language;
+	private String lookAndFeel;
 
 	public String getLanguage() {
 		return language;
@@ -31,6 +33,14 @@ public class UserProperties {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public String getLookAndFeel() {
+		return lookAndFeel;
+	}
+
+	public void setLookAndFeel(String lookAndFeel) {
+		this.lookAndFeel = lookAndFeel;
 	}
 
 	public void setLocale(Locale locale) {
@@ -53,12 +63,15 @@ public class UserProperties {
 				String value = field.get(UserProperties.this).toString();
 
 				properties.setProperty(name, value);
-			} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			} catch (SecurityException | IllegalArgumentException
+					| IllegalAccessException e) {
 				LOG.warn("Could not store property '{}'", field);
 			}
 		}
 
-		properties.store(Files.newBufferedWriter(Paths.get("./application.properties"), StandardCharsets.UTF_8),
+		properties.store(
+				Files.newBufferedWriter(Paths.get("./application.properties"),
+						StandardCharsets.UTF_8),
 				"User settings");
 	}
 }

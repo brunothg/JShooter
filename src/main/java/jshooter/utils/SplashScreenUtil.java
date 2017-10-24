@@ -12,6 +12,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDialog;
+import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
@@ -92,6 +93,7 @@ public class SplashScreenUtil {
 		private static final long serialVersionUID = 1L;
 
 		private BufferedImage image;
+		private JProgressBar pb;
 
 		public JSplashDialog() {
 			build();
@@ -106,6 +108,12 @@ public class SplashScreenUtil {
 			setSize(800, 600);
 			setLocationRelativeTo(null);
 			setBackground(new Color(0, 0, 0, 0));
+
+			pb = new JProgressBar();
+			pb.setIndeterminate(true);
+			pb.setStringPainted(false);
+			pb.setOpaque(false);
+			add(pb, BorderLayout.SOUTH);
 		}
 
 		@Override
@@ -132,6 +140,20 @@ public class SplashScreenUtil {
 					image.getWidth(), image.getHeight(), null);
 
 			super.paintComponents(g);
+
+			if (getWidth() != imgW || getHeight() != (imgH + pb.getHeight())) {
+				setSize(imgW, imgH + pb.getHeight());
+				setLocationRelativeTo(null);
+				setBackground(new Color(0, 0, 0, 0));
+			}
+		}
+
+		public void setProgress(Double progress) {
+			if (progress == null) {
+				pb.setIndeterminate(true);
+			} else {
+				pb.setValue((int) Math.round(100 * progress));
+			}
 		}
 
 		public void setImage(BufferedImage img) {

@@ -3,6 +3,8 @@ package jshooter;
 import java.io.IOException;
 import java.net.URL;
 
+import javax.swing.UIManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,8 +14,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.github.brunothg.game.engine.image.InternalImage;
 import com.github.brunothg.swing.mvp.annotation.EnableSwingMVP;
+import com.github.brunothg.swing2.utils.Null;
 
 import jshooter.config.UserProperties;
+import jshooter.utils.LookAndFeelUtils;
 import jshooter.utils.SplashScreenUtil;
 import jshooter.utils.ThreadUtils;
 import jshooter.utils.UrlUtils;
@@ -38,6 +42,7 @@ public class Application {
 
 		initializeSpring(args);
 
+		// TODO Change splash screen image
 		URL imageURL = UrlUtils.getUrl(
 				"http://montanarifleco.com/wp-content/uploads/2014/09/avr2016.png");
 		SplashScreenUtil.showSplashScreen(imageURL, new Runnable() {
@@ -55,15 +60,28 @@ public class Application {
 	}
 
 	private static void initializeApplication() {
-		registerShotdownHook();
+		UserProperties userProperties = ctx.getBean(UserProperties.class);
+
+		// Hook for cleaning up application before real shutdown
+		registerShutdownHook();
+
+		// Resotre LookAndFeel
+		LookAndFeelUtils
+				.updateLookAndFeel(Null.nvl(userProperties.getLookAndFeel(),
+						UIManager.getSystemLookAndFeelClassName()));
+
+		// Setup default imagelocation
 		InternalImage.setRootFolder("/media/images/");
 	}
 
-	private static void registerShotdownHook() {
+	private static void registerShutdownHook() {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
+				// Update and save UserProperties
 				UserProperties userProperties = ctx
 						.getBean(UserProperties.class);
+				userProperties.setLookAndFeel(UIManager.getLookAndFeel()
+						.getClass().getCanonicalName());
 				try {
 					userProperties.store();
 				} catch (IOException e) {
