@@ -158,6 +158,7 @@ public class SplashScreenUtil {
 
 		public void setImage(BufferedImage img) {
 			this.image = img;
+			setIconImage(image);
 		}
 
 		public void setImageURL(URL imageURL) throws IOException {
