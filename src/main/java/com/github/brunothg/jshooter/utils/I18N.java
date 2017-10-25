@@ -56,6 +56,7 @@ public class I18N {
 	 * @return List with available languages
 	 */
 	public Map<Locale, String> getAvailableLanguages() {
+		// FIXME default language returns english
 		HashMap<Locale, String> languages = new HashMap<>();
 
 		String[] codes = getLanguage(Locale.ROOT).getString("language-codes").split(",");
