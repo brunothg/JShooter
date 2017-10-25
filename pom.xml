@@ -42,6 +42,7 @@
 		<!-- Dependency Versions -->
 		<game-engine.version>1.4.0</game-engine.version>
 		<swing-extension.version>1.0.0</swing-extension.version>
+		<miglayout.version>3.7.4</miglayout.version>
 	</properties>
 
 	<build>
@@ -119,6 +120,12 @@
 			<artifactId>swing-extension</artifactId>
 			<version>${swing-extension.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout</artifactId>
+			<version>${miglayout.version}</version>
+		</dependency>
+
 
 		<!-- jGoodies -->
 		<dependency>

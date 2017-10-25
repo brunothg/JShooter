@@ -1,4 +1,4 @@
-package jshooter.utils;
+package com.github.brunothg.jshooter.utils;
 
 import java.util.HashMap;
 import java.util.Locale;

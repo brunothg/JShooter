@@ -1,4 +1,4 @@
-package jshooter.config;
+package com.github.brunothg.jshooter.config;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

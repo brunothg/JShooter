@@ -1,4 +1,4 @@
-package jshooter;
+package com.github.brunothg.jshooter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,12 +14,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.github.brunothg.game.engine.image.InternalImage;
 import com.github.brunothg.game.engine.utils.event.EventBus;
+import com.github.brunothg.jshooter.config.UserProperties;
+import com.github.brunothg.jshooter.gui.LookAndFeelSettingsPanel;
+import com.github.brunothg.jshooter.utils.LookAndFeelUtils;
+import com.github.brunothg.jshooter.utils.SplashScreenUtil;
+import com.github.brunothg.jshooter.utils.ThreadUtils;
 import com.github.brunothg.swing2.utils.Null;
-
-import jshooter.config.UserProperties;
-import jshooter.utils.LookAndFeelUtils;
-import jshooter.utils.SplashScreenUtil;
-import jshooter.utils.ThreadUtils;
 
 /**
  * Application starting point. Setting up spring-context and other initial
@@ -48,6 +48,8 @@ public class Application {
 				ThreadUtils.sleep(2000);
 			}
 		});
+
+		ctx.getBean(LookAndFeelSettingsPanel.class).showSettingsDialog(null);
 	}
 
 	private static void initializeSpring(String[] args) {

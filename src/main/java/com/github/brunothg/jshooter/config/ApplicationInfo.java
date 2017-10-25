@@ -1,4 +1,4 @@
-package jshooter.config;
+package com.github.brunothg.jshooter.config;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package jshooter.utils;
+package com.github.brunothg.jshooter.utils;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -1,4 +1,4 @@
-package jshooter.utils;
+package com.github.brunothg.jshooter.utils;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,8 +13,6 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +24,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SplashScreenUtil {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(SplashScreenUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SplashScreenUtil.class);
 
-	public static SplashScreen getSplashScreen(URL imageURL)
-			throws IOException {
+	public static SplashScreen getSplashScreen(URL imageURL) throws IOException {
 		SplashScreen screen = SplashScreen.getSplashScreen();
 		if (screen != null) {
 			screen.setImageURL(imageURL);
@@ -51,8 +47,7 @@ public class SplashScreenUtil {
 			action.run();
 			splashScreen.close();
 		} else {
-			LOG.warn(
-					"SplashScreen could not be created - switching to dialog fallback");
+			LOG.warn("SplashScreen could not be created - switching to dialog fallback");
 
 			BufferedImage image = null;
 			try {
@@ -65,28 +60,15 @@ public class SplashScreenUtil {
 
 	}
 
-	public static void showSplashDialog(final BufferedImage image,
-			final Runnable action) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				final JSplashDialog splashDialog = new JSplashDialog();
-				splashDialog.setImage(image);
-				splashDialog.setVisible(true);
+	public static void showSplashDialog(final BufferedImage image, final Runnable action) {
+		final JSplashDialog splashDialog = new JSplashDialog();
+		splashDialog.setImage(image);
+		splashDialog.setVisible(true);
 
-				new SwingWorker<Void, Object>() {
-					protected Void doInBackground() throws Exception {
-						action.run();
-						return null;
-					}
+		action.run();
 
-					protected void done() {
-						splashDialog.setVisible(false);
-						splashDialog.dispose();
-					}
-				}.execute();
-			}
-		});
-
+		splashDialog.setVisible(false);
+		splashDialog.dispose();
 	}
 
 	public static class JSplashDialog extends JDialog {
@@ -123,8 +105,7 @@ public class SplashScreenUtil {
 			}
 
 			Graphics2D g2d = (Graphics2D) g;
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 			double difX = (double) getWidth() / image.getWidth();
 			double difY = (double) getHeight() / image.getHeight();
@@ -136,8 +117,7 @@ public class SplashScreenUtil {
 			int imgX = (int) ((getWidth() - imgW) * 0.5);
 			int imgY = (int) ((getHeight() - imgH) * 0.5);
 
-			g2d.drawImage(image, imgX, imgY, imgX + imgW, imgY + imgH, 0, 0,
-					image.getWidth(), image.getHeight(), null);
+			g2d.drawImage(image, imgX, imgY, imgX + imgW, imgY + imgH, 0, 0, image.getWidth(), image.getHeight(), null);
 
 			super.paintComponents(g);
 

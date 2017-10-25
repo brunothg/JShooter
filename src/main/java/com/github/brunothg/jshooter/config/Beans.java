@@ -1,9 +1,9 @@
-package jshooter.config;
+package com.github.brunothg.jshooter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import jshooter.utils.I18N;
+import com.github.brunothg.jshooter.utils.I18N;
 
 @Configuration
 public class Beans {
