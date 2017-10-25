@@ -2,6 +2,7 @@ package com.github.brunothg.jshooter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 
 import javax.swing.UIManager;
 
@@ -75,6 +76,9 @@ public class Application {
 		// Resotre LookAndFeel
 		LookAndFeelUtils.updateLookAndFeel(
 				Null.nvl(userProperties.getLookAndFeel(), UIManager.getSystemLookAndFeelClassName()));
+
+		// Setting locale
+		Locale.setDefault(userProperties.getLocale());
 
 		// Setup default imagelocation
 		InternalImage.setRootFolder("/media/images/");
