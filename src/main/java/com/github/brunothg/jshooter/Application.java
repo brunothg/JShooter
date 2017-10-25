@@ -18,6 +18,7 @@ import com.github.brunothg.jshooter.config.UserProperties;
 import com.github.brunothg.jshooter.utils.LookAndFeelUtils;
 import com.github.brunothg.jshooter.utils.SplashScreenUtil;
 import com.github.brunothg.jshooter.utils.ThreadUtils;
+import com.github.brunothg.swing2.dialog.ExceptionDialog;
 import com.github.brunothg.swing2.utils.Null;
 
 /**
@@ -35,6 +36,14 @@ public class Application {
 	private static EventBus applicationEventBus;
 
 	public static void main(String[] args) {
+		try {
+			saveMain(args);
+		} catch (Exception e) {
+			ExceptionDialog.showExceptionDialog(null, e);
+		}
+	}
+
+	private static void saveMain(String[] args) {
 		LOG.info("Launching application ...");
 
 		initializeSpring(args);
