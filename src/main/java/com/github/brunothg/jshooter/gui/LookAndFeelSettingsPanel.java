@@ -134,6 +134,7 @@ public class LookAndFeelSettingsPanel extends JPanel {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				applySettings();
+				dialog.dispose();
 			}
 		});
 		pnlButtons.add(btnOk);
