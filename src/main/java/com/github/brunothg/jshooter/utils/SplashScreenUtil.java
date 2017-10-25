@@ -44,7 +44,11 @@ public class SplashScreenUtil {
 		}
 
 		if (splashScreen != null) {
-			action.run();
+			try {
+				action.run();
+			} catch (Exception e) {
+				LOG.warn("Error executing action", e);
+			}
 			splashScreen.close();
 		} else {
 			LOG.warn("SplashScreen could not be created - switching to dialog fallback");
@@ -65,7 +69,11 @@ public class SplashScreenUtil {
 		splashDialog.setImage(image);
 		splashDialog.setVisible(true);
 
-		action.run();
+		try {
+			action.run();
+		} catch (Exception e) {
+			LOG.warn("Error executing action", e);
+		}
 
 		splashDialog.setVisible(false);
 		splashDialog.dispose();
