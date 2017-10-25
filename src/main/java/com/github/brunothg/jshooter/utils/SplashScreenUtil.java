@@ -48,8 +48,10 @@ public class SplashScreenUtil {
 				action.run();
 			} catch (Exception e) {
 				LOG.warn("Error executing action", e);
+				throw e;
+			} finally {
+				splashScreen.close();
 			}
-			splashScreen.close();
 		} else {
 			LOG.warn("SplashScreen could not be created - switching to dialog fallback");
 
@@ -73,10 +75,12 @@ public class SplashScreenUtil {
 			action.run();
 		} catch (Exception e) {
 			LOG.warn("Error executing action", e);
+			throw e;
+		} finally {
+			splashDialog.setVisible(false);
+			splashDialog.dispose();
 		}
 
-		splashDialog.setVisible(false);
-		splashDialog.dispose();
 	}
 
 	public static class JSplashDialog extends JDialog {
