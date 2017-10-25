@@ -99,6 +99,7 @@ public class SplashScreenUtil {
 			setLayout(new BorderLayout());
 
 			setUndecorated(true);
+			setAlwaysOnTop(true);
 			setSize(800, 600);
 			setLocationRelativeTo(null);
 			setBackground(new Color(0, 0, 0, 0));
