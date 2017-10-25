@@ -85,8 +85,12 @@ public class LanguageSettingsPanel extends JPanel {
 		}
 	}
 
+	public Locale getSelectedLanguage() {
+		return cbLocaleModel.getElementAt(cbLocale.getSelectedIndex()).getElement();
+	}
+
 	public void applySettings() {
-		Locale locale = cbLocaleModel.getElementAt(cbLocale.getSelectedIndex()).getElement();
+		Locale locale = getSelectedLanguage();
 		LOG.info("Setting language -> '{}'", locale);
 
 		userSettings.setLocale(locale);

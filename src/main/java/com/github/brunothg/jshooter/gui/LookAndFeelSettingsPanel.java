@@ -153,9 +153,15 @@ public class LookAndFeelSettingsPanel extends JPanel {
 		}
 	}
 
-	public void applySettings() {
+	public String getSelectedLookAndFeelClassName() {
 		TitledElement<LookAndFeelInfo> element = cbLaFModel.getElementAt(cbLaF.getSelectedIndex());
 		String lookAndFeel = element.getElement().getClassName();
+
+		return lookAndFeel;
+	}
+
+	public void applySettings() {
+		String lookAndFeel = getSelectedLookAndFeelClassName();
 
 		userSettings.setLookAndFeel(lookAndFeel);
 		LookAndFeelUtils.updateLookAndFeel(lookAndFeel);
