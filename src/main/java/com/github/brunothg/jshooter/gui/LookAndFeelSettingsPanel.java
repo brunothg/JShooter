@@ -33,6 +33,11 @@ import com.github.brunothg.jshooter.utils.TitledElement;
 import com.github.brunothg.jshooter.utils.TitledElement.TitleCallback;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JProgressBar;
+import javax.swing.JCheckBox;
 
 @Component
 @Scope("prototype")
@@ -45,6 +50,7 @@ public class LookAndFeelSettingsPanel extends JPanel {
 
 	private JComboBox<TitledElement<LookAndFeelInfo>> cbLaF;
 	private DefaultComboBoxModel<TitledElement<LookAndFeelInfo>> cbLaFModel;
+	private JPanel pnlPreview;
 
 	@Autowired
 	public LookAndFeelSettingsPanel(I18N language, UserProperties userSettings) {
@@ -55,9 +61,9 @@ public class LookAndFeelSettingsPanel extends JPanel {
 	}
 
 	private void build() {
-		setLayout(new MigLayout("", "[][grow]", "[][]"));
+		setLayout(new MigLayout("", "[][grow]", "[][][][][grow]"));
 
-		JLabel lblTheme = new JLabel("Theme");
+		JLabel lblTheme = new JLabel(language.get("theme"));
 		add(lblTheme, "cell 0 0");
 
 		cbLaF = new JComboBox<>();
@@ -66,6 +72,47 @@ public class LookAndFeelSettingsPanel extends JPanel {
 		updateAvailableLaFs();
 		cbLaF.addItemListener(getLaFChangeListener());
 		add(cbLaF, "cell 1 1,growx");
+
+		JLabel lblPreview = new JLabel(language.get("preview"));
+		add(lblPreview, "cell 0 3");
+
+		pnlPreview = buildPreviewPanel();
+	}
+
+	private JPanel buildPreviewPanel() {
+		JPanel pnlPreview = new JPanel();
+		pnlPreview.setBorder(new LineBorder(new Color(0, 0, 0)));
+		add(pnlPreview, "cell 1 4,grow");
+		pnlPreview.setLayout(new MigLayout("", "[][grow]", "[][][][][][][][]"));
+
+		JLabel lblTextfield = new JLabel(language.get("text-field"));
+		pnlPreview.add(lblTextfield, "cell 0 0");
+
+		JTextField txtLoremIpsum = new JTextField();
+		txtLoremIpsum.setText("Lorem Ipsum");
+		pnlPreview.add(txtLoremIpsum, "cell 1 1,growx");
+		txtLoremIpsum.setColumns(10);
+
+		JLabel lblButton = new JLabel(language.get("button"));
+		pnlPreview.add(lblButton, "cell 0 2");
+
+		JButton btnLoremIpsum = new JButton("Lorem Ipsum");
+		pnlPreview.add(btnLoremIpsum, "cell 1 3,growx");
+
+		JLabel lblProgressbar = new JLabel(language.get("progress-bar"));
+		pnlPreview.add(lblProgressbar, "cell 0 4");
+
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		pnlPreview.add(progressBar, "cell 1 5,growx");
+
+		JLabel lblCheckbox = new JLabel(language.get("check-box"));
+		pnlPreview.add(lblCheckbox, "cell 0 6");
+
+		JCheckBox chckbxLoremIpsum = new JCheckBox("Lorem Ipsum");
+		pnlPreview.add(chckbxLoremIpsum, "cell 1 7,growx");
+
+		return pnlPreview;
 	}
 
 	private ItemListener getLaFChangeListener() {
@@ -77,7 +124,7 @@ public class LookAndFeelSettingsPanel extends JPanel {
 					String lookAndFeel = element.getElement().getClassName();
 					LOG.debug("Selected LaF '{}'", lookAndFeel);
 
-					LookAndFeelUtils.setLookAndFeelForComponent(lookAndFeel, LookAndFeelSettingsPanel.this);
+					LookAndFeelUtils.setLookAndFeelForComponent(lookAndFeel, pnlPreview);
 				}
 			}
 		};
@@ -128,7 +175,7 @@ public class LookAndFeelSettingsPanel extends JPanel {
 
 		JPanel pnlButtons = new JPanel();
 		pnlButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		dialog.add(pnlButtons, BorderLayout.SOUTH);
+		dialog.getContentPane().add(pnlButtons, BorderLayout.SOUTH);
 
 		JButton btnOk = new JButton(language.get("dialog-ok"));
 		btnOk.addActionListener(new ActionListener() {
