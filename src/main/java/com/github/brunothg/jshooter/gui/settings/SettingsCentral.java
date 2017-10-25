@@ -1,9 +1,9 @@
 package com.github.brunothg.jshooter.gui.settings;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.brunothg.jshooter.config.UserProperties;
 import com.github.brunothg.jshooter.utils.I18N;
 
 @Component
@@ -27,13 +26,11 @@ public class SettingsCentral extends JPanel {
 	private static final Logger LOG = LoggerFactory.getLogger(SettingsCentral.class);
 	private static final long serialVersionUID = 1L;
 
-	private UserProperties userSettings;
 	private I18N language;
 
 	@Autowired
-	public SettingsCentral(I18N language, UserProperties userSettings) {
+	public SettingsCentral(I18N language) {
 		this.language = language;
-		this.userSettings = userSettings;
 
 		build();
 	}
@@ -43,6 +40,7 @@ public class SettingsCentral extends JPanel {
 	}
 
 	public void applySettings() {
+		LOG.debug("Apply all changes");
 		// TODO applySettings
 	}
 
