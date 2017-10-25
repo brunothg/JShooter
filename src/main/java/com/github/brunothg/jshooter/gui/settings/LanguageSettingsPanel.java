@@ -1,4 +1,4 @@
-package com.github.brunothg.jshooter.gui;
+package com.github.brunothg.jshooter.gui.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog.ModalityType;
@@ -33,7 +33,7 @@ import net.miginfocom.swing.MigLayout;
 
 @Component
 @Scope("prototype")
-public class LanguageSettingsPanel extends JPanel {
+public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 	private static final Logger LOG = LoggerFactory.getLogger(LanguageSettingsPanel.class);
 	private static final long serialVersionUID = 1L;
 

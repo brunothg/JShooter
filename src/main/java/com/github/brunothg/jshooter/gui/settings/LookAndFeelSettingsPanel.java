@@ -1,4 +1,4 @@
-package com.github.brunothg.jshooter.gui;
+package com.github.brunothg.jshooter.gui.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog.ModalityType;
@@ -41,7 +41,7 @@ import javax.swing.JCheckBox;
 
 @Component
 @Scope("prototype")
-public class LookAndFeelSettingsPanel extends JPanel {
+public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 	private static final Logger LOG = LoggerFactory.getLogger(LookAndFeelSettingsPanel.class);
 	private static final long serialVersionUID = 1L;
 
