@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.github.brunothg.game.engine.image.InternalImage;
-import com.github.brunothg.swing.mvp.annotation.EnableSwingMVP;
+import com.github.brunothg.game.engine.utils.event.EventBus;
 import com.github.brunothg.swing2.utils.Null;
 
 import jshooter.config.UserProperties;
@@ -29,20 +29,18 @@ import jshooter.utils.ThreadUtils;
  *
  */
 @SpringBootApplication
-@EnableSwingMVP
 public class Application {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(Application.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
 	private static ConfigurableApplicationContext ctx;
+	private static EventBus applicationEventBus;
 
 	public static void main(String[] args) {
 		LOG.info("Launching application ...");
 
 		initializeSpring(args);
 
-		URL imageURL = Application.class.getClassLoader()
-				.getResource("media/images/splashscreen.png");
+		URL imageURL = Application.class.getClassLoader().getResource("media/images/splashscreen.png");
 		SplashScreenUtil.showSplashScreen(imageURL, new Runnable() {
 			public void run() {
 				initializeApplication();
@@ -53,8 +51,7 @@ public class Application {
 	}
 
 	private static void initializeSpring(String[] args) {
-		ctx = new SpringApplicationBuilder(Application.class).headless(false)
-				.web(false).run(args);
+		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(false).run(args);
 	}
 
 	private static void initializeApplication() {
@@ -64,22 +61,22 @@ public class Application {
 		registerShutdownHook();
 
 		// Resotre LookAndFeel
-		LookAndFeelUtils
-				.updateLookAndFeel(Null.nvl(userProperties.getLookAndFeel(),
-						UIManager.getSystemLookAndFeelClassName()));
+		LookAndFeelUtils.updateLookAndFeel(
+				Null.nvl(userProperties.getLookAndFeel(), UIManager.getSystemLookAndFeelClassName()));
 
 		// Setup default imagelocation
 		InternalImage.setRootFolder("/media/images/");
+
+		// Setup event bus
+		applicationEventBus = new EventBus(Application.class);
 	}
 
 	private static void registerShutdownHook() {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 				// Update and save UserProperties
-				UserProperties userProperties = ctx
-						.getBean(UserProperties.class);
-				userProperties.setLookAndFeel(UIManager.getLookAndFeel()
-						.getClass().getCanonicalName());
+				UserProperties userProperties = ctx.getBean(UserProperties.class);
+				userProperties.setLookAndFeel(UIManager.getLookAndFeel().getClass().getCanonicalName());
 				try {
 					userProperties.store();
 				} catch (IOException e) {
@@ -91,5 +88,9 @@ public class Application {
 
 	public static ApplicationContext getApplicationContext() {
 		return ctx;
+	}
+
+	public static EventBus getApplicationEventBus() {
+		return applicationEventBus;
 	}
 }
