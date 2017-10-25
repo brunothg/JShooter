@@ -15,6 +15,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.github.brunothg.game.engine.image.InternalImage;
 import com.github.brunothg.game.engine.utils.event.EventBus;
 import com.github.brunothg.jshooter.config.UserProperties;
+import com.github.brunothg.jshooter.gui.settings.SettingsCentral;
 import com.github.brunothg.jshooter.utils.LookAndFeelUtils;
 import com.github.brunothg.jshooter.utils.SplashScreenUtil;
 import com.github.brunothg.jshooter.utils.ThreadUtils;
@@ -40,6 +41,7 @@ public class Application {
 			saveMain(args);
 		} catch (Exception e) {
 			ExceptionDialog.showExceptionDialog(null, e);
+			LOG.error("Unknown error", e);
 		}
 	}
 
@@ -56,6 +58,8 @@ public class Application {
 				ThreadUtils.sleep(2000);
 			}
 		});
+
+		ctx.getBean(SettingsCentral.class).showSettingsDialog(null);
 	}
 
 	private static void initializeSpring(String[] args) {

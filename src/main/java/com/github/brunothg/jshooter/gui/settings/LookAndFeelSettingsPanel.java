@@ -167,6 +167,14 @@ public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 		LookAndFeelUtils.updateLookAndFeel(lookAndFeel);
 	}
 
+	public JPanel getSettingsPanel() {
+		return this;
+	}
+
+	public String getTitle() {
+		return language.get("laf-settings-title");
+	}
+
 	public void showSettingsDialog(java.awt.Component parent) {
 		Window windowForComponent = (parent != null) ? SwingUtilities.windowForComponent(parent) : null;
 
@@ -177,7 +185,7 @@ public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 
 		LookAndFeelSettingsPanel settingsPanel = LookAndFeelSettingsPanel.this;
 		dialog.getContentPane().add(settingsPanel, BorderLayout.CENTER);
-		dialog.setTitle(language.get("laf-settings-title"));
+		dialog.setTitle(getTitle());
 
 		JPanel pnlButtons = new JPanel();
 		pnlButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));

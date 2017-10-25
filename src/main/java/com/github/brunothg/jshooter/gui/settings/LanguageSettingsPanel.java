@@ -96,6 +96,14 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 		userSettings.setLocale(locale);
 	}
 
+	public JPanel getSettingsPanel() {
+		return this;
+	}
+
+	public String getTitle() {
+		return language.get("language-settings-title");
+	}
+
 	public void showSettingsDialog(java.awt.Component parent) {
 		Window windowForComponent = (parent != null) ? SwingUtilities.windowForComponent(parent) : null;
 
@@ -106,7 +114,7 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 
 		LanguageSettingsPanel settingsPanel = LanguageSettingsPanel.this;
 		dialog.getContentPane().add(settingsPanel, BorderLayout.CENTER);
-		dialog.setTitle(language.get("language-settings-title"));
+		dialog.setTitle(getTitle());
 
 		JPanel pnlButtons = new JPanel();
 		pnlButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));
