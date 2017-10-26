@@ -1,6 +1,7 @@
 package com.github.brunothg.jshooter.gui.settings;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
 import java.awt.Window;
@@ -11,15 +12,21 @@ import java.awt.event.ItemListener;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.border.LineBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +41,6 @@ import com.github.brunothg.jshooter.utils.TitledElement;
 import com.github.brunothg.jshooter.utils.TitledElement.TitleCallback;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JProgressBar;
-import javax.swing.JCheckBox;
 
 @Component
 @Scope("prototype")
@@ -59,7 +61,7 @@ public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 	@PostConstruct
 	public void build() {
 		removeAll();
-		setLayout(new MigLayout("", "[][grow]", "[][][][][grow]"));
+		setLayout(new MigLayout("", "[][grow]", "[][][][][][][]"));
 
 		JLabel lblTheme = new JLabel(language.get("theme"));
 		add(lblTheme, "cell 0 0");
@@ -75,6 +77,12 @@ public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 		add(lblPreview, "cell 0 3");
 
 		pnlPreview = buildPreviewPanel();
+
+		JTextPane lblRestartInfo = new JTextPane();
+		lblRestartInfo.setBorder(BorderFactory.createTitledBorder(language.get("settings-danger")));
+		lblRestartInfo.setEditable(false);
+		lblRestartInfo.setText(language.get("settings-restart-info"));
+		add(lblRestartInfo, "cell 0 6 2 1,growx");
 	}
 
 	private JPanel buildPreviewPanel() {

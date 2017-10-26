@@ -11,12 +11,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
 import org.slf4j.Logger;
@@ -50,7 +52,7 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 	@PostConstruct
 	public void build() {
 		removeAll();
-		setLayout(new MigLayout("", "[][grow]", "[][]"));
+		setLayout(new MigLayout("", "[][grow]", "[][][][]"));
 
 		JLabel lblLocale = new JLabel(language.get("language"));
 		add(lblLocale, "cell 0 0");
@@ -60,6 +62,13 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 		cbLocale.setModel(cbLocaleModel);
 		updateAvailableLocales();
 		add(cbLocale, "cell 1 1,growx");
+
+		JTextPane lblRestartInfo = new JTextPane();
+		lblRestartInfo.setBorder(BorderFactory.createTitledBorder(language.get("settings-danger")));
+		lblRestartInfo.setEditable(false);
+		lblRestartInfo.setText(language.get("settings-restart-info"));
+		add(lblRestartInfo, "cell 0 3 2 1,growx");
+
 	}
 
 	protected void updateAvailableLocales() {
