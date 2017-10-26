@@ -42,6 +42,7 @@ public class VersionSettings extends JPanel implements SettingsPanel {
 
 	@PostConstruct
 	public void build() {
+		removeAll();
 		setLayout(new MigLayout("", "[][grow]", "[][][][][][]"));
 
 		JLabel lblBuildname = new JLabel(language.get("build-name"));

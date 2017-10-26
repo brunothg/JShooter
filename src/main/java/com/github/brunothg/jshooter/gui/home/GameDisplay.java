@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.github.brunothg.game.engine.image.InternalImage;
-import com.github.brunothg.jshooter.Application;
 import com.github.brunothg.jshooter.utils.I18N;
 
 @Component
@@ -21,17 +20,20 @@ public class GameDisplay extends JFrame {
 	@Autowired
 	private I18N language;
 
+	@Autowired
+	GameMenu menu;
+
 	@PostConstruct
 	public void build() {
+		getContentPane().removeAll();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setSize(800, 600);
 		setLocationRelativeTo(null);
 		setTitle(language.get("app-name"));
 		setIconImage(InternalImage.load("icon.png"));
-		removeAll();
 
-		GameMenu menu = Application.getApplicationContext().getBean(GameMenu.class);
 		setJMenuBar(menu);
 	}
 

@@ -58,6 +58,7 @@ public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 
 	@PostConstruct
 	public void build() {
+		removeAll();
 		setLayout(new MigLayout("", "[][grow]", "[][][][][grow]"));
 
 		JLabel lblTheme = new JLabel(language.get("theme"));

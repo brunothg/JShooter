@@ -49,6 +49,7 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 
 	@PostConstruct
 	public void build() {
+		removeAll();
 		setLayout(new MigLayout("", "[][grow]", "[][]"));
 
 		JLabel lblLocale = new JLabel(language.get("language"));

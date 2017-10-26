@@ -52,6 +52,7 @@ public class SettingsCentral extends JPanel {
 
 	@PostConstruct
 	public void build() {
+		removeAll();
 		setLayout(new BorderLayout(0, 0));
 
 		JSplitPane splitPane = new JSplitPane();
