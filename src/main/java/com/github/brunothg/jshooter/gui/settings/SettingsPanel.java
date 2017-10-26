@@ -1,5 +1,7 @@
 package com.github.brunothg.jshooter.gui.settings;
 
+import java.awt.Component;
+
 import javax.swing.JPanel;
 
 import org.springframework.stereotype.Service;
@@ -11,4 +13,6 @@ public interface SettingsPanel {
 	public String getTitle();
 
 	public JPanel getSettingsPanel();
+
+	public void showSettingsDialog(Component parent);
 }
