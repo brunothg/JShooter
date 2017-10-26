@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Arrays;
 
+import javax.annotation.PostConstruct;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -45,22 +46,18 @@ public class LookAndFeelSettingsPanel extends JPanel implements SettingsPanel {
 	private static final Logger LOG = LoggerFactory.getLogger(LookAndFeelSettingsPanel.class);
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	private UserProperties userSettings;
+
+	@Autowired
 	private I18N language;
 
 	private JComboBox<TitledElement<LookAndFeelInfo>> cbLaF;
 	private DefaultComboBoxModel<TitledElement<LookAndFeelInfo>> cbLaFModel;
 	private JPanel pnlPreview;
 
-	@Autowired
-	public LookAndFeelSettingsPanel(I18N language, UserProperties userSettings) {
-		this.language = language;
-		this.userSettings = userSettings;
-
-		build();
-	}
-
-	private void build() {
+	@PostConstruct
+	public void build() {
 		setLayout(new MigLayout("", "[][grow]", "[][][][][grow]"));
 
 		JLabel lblTheme = new JLabel(language.get("theme"));

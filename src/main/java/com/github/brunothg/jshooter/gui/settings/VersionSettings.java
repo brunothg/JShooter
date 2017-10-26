@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 
+import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -29,22 +30,18 @@ import net.miginfocom.swing.MigLayout;
 public class VersionSettings extends JPanel implements SettingsPanel {
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	private I18N language;
+
+	@Autowired
 	private ApplicationInfo applicationInfo;
 
 	private JTextField tfBuildName;
 	private JTextField tfVersion;
 	private JTextField tfBuildTimestamp;
 
-	@Autowired
-	public VersionSettings(I18N language, ApplicationInfo applicationInfo) {
-		this.language = language;
-		this.applicationInfo = applicationInfo;
-
-		build();
-	}
-
-	private void build() {
+	@PostConstruct
+	public void build() {
 		setLayout(new MigLayout("", "[][grow]", "[][][][][][]"));
 
 		JLabel lblBuildname = new JLabel(language.get("build-name"));

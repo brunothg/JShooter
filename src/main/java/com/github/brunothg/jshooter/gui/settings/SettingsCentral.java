@@ -6,11 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,21 +20,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.brunothg.jshooter.Application;
 import com.github.brunothg.jshooter.utils.I18N;
 import com.github.brunothg.jshooter.utils.TitledElement;
 import com.github.brunothg.jshooter.utils.TitledElement.TitleCallback;
-import javax.swing.border.BevelBorder;
 
 @Component
 @Scope("prototype")
@@ -42,20 +40,18 @@ public class SettingsCentral extends JPanel {
 	private static final Logger LOG = LoggerFactory.getLogger(SettingsCentral.class);
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	private I18N language;
+
+	@Autowired
+	private List<SettingsPanel> settingPanels;
 
 	private JList<TitledElement<SettingsPanel>> liSettings;
 	private DefaultListModel<TitledElement<SettingsPanel>> liSettingsModel;
 	private JPanel pnlSettings;
 
-	@Autowired
-	public SettingsCentral(I18N language) {
-		this.language = language;
-
-		build();
-	}
-
-	private void build() {
+	@PostConstruct
+	public void build() {
 		setLayout(new BorderLayout(0, 0));
 
 		JSplitPane splitPane = new JSplitPane();
@@ -93,8 +89,6 @@ public class SettingsCentral extends JPanel {
 	}
 
 	protected void updateSettingsList() {
-		ApplicationContext ctx = Application.getApplicationContext();
-		List<SettingsPanel> settingPanels = new ArrayList<>(ctx.getBeansOfType(SettingsPanel.class).values());
 		Collections.sort(settingPanels, new Comparator<SettingsPanel>() {
 			public int compare(SettingsPanel o1, SettingsPanel o2) {
 				return o1.getTitle().compareTo(o2.getTitle());

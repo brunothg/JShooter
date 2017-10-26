@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.PostConstruct;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -37,21 +38,17 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 	private static final Logger LOG = LoggerFactory.getLogger(LanguageSettingsPanel.class);
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	private UserProperties userSettings;
+
+	@Autowired
 	private I18N language;
 
 	private JComboBox<TitledElement<Locale>> cbLocale;
 	private DefaultComboBoxModel<TitledElement<Locale>> cbLocaleModel;
 
-	@Autowired
-	public LanguageSettingsPanel(I18N language, UserProperties userSettings) {
-		this.language = language;
-		this.userSettings = userSettings;
-
-		build();
-	}
-
-	private void build() {
+	@PostConstruct
+	public void build() {
 		setLayout(new MigLayout("", "[][grow]", "[][]"));
 
 		JLabel lblLocale = new JLabel(language.get("language"));

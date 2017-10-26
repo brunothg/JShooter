@@ -17,7 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.github.brunothg.game.engine.image.InternalImage;
 import com.github.brunothg.game.engine.utils.event.EventBus;
 import com.github.brunothg.jshooter.config.UserProperties;
-import com.github.brunothg.jshooter.gui.GameDisplay;
+import com.github.brunothg.jshooter.gui.home.GameDisplay;
 import com.github.brunothg.jshooter.utils.LookAndFeelUtils;
 import com.github.brunothg.jshooter.utils.SplashScreenUtil;
 import com.github.brunothg.jshooter.utils.ThreadUtils;
