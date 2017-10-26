@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.github.brunothg.game.engine.image.InternalImage;
 import com.github.brunothg.game.engine.utils.event.EventBus;
 import com.github.brunothg.jshooter.config.UserProperties;
-import com.github.brunothg.jshooter.gui.settings.SettingsCentral;
+import com.github.brunothg.jshooter.gui.GameDisplay;
 import com.github.brunothg.jshooter.utils.LookAndFeelUtils;
 import com.github.brunothg.jshooter.utils.SplashScreenUtil;
 import com.github.brunothg.jshooter.utils.ThreadUtils;
@@ -60,7 +61,7 @@ public class Application {
 			}
 		});
 
-		ctx.getBean(SettingsCentral.class).showSettingsDialog(null);
+		launchApplication();
 	}
 
 	private static void initializeSpring(String[] args) {
@@ -85,6 +86,15 @@ public class Application {
 
 		// Setup event bus
 		applicationEventBus = new EventBus(Application.class);
+	}
+
+	private static void launchApplication() {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				GameDisplay display = ctx.getBean(GameDisplay.class);
+				display.setVisible(true);
+			}
+		});
 	}
 
 	private static void registerShutdownHook() {
