@@ -94,6 +94,7 @@ public class LanguageSettingsPanel extends JPanel implements SettingsPanel {
 		LOG.info("Setting language -> '{}'", locale);
 
 		userSettings.setLocale(locale);
+		language.setDefaultLocale(locale);
 		Locale.setDefault(locale);
 	}
 
