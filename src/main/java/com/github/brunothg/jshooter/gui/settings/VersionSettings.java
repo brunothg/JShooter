@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 
 import javax.annotation.PostConstruct;
@@ -39,11 +40,12 @@ public class VersionSettings extends JPanel implements SettingsPanel {
 	private JTextField tfBuildName;
 	private JTextField tfVersion;
 	private JTextField tfBuildTimestamp;
+	private JTextField tfWorkingDir;
 
 	@PostConstruct
 	public void build() {
 		removeAll();
-		setLayout(new MigLayout("", "[][grow]", "[][][][][][]"));
+		setLayout(new MigLayout("", "[][grow]", "[][][][][][][][]"));
 
 		JLabel lblBuildname = new JLabel(language.get("build-name"));
 		add(lblBuildname, "cell 0 0");
@@ -69,6 +71,14 @@ public class VersionSettings extends JPanel implements SettingsPanel {
 		add(tfBuildTimestamp, "cell 1 5,growx");
 		tfBuildTimestamp.setColumns(10);
 
+		JLabel lblWorkingDir = new JLabel(language.get("working-dir"));
+		add(lblWorkingDir, "cell 0 6");
+
+		tfWorkingDir = new JTextField();
+		tfWorkingDir.setEditable(false);
+		add(tfWorkingDir, "cell 1 7,growx");
+		tfWorkingDir.setColumns(10);
+
 		updateApplicationInfo();
 	}
 
@@ -76,6 +86,7 @@ public class VersionSettings extends JPanel implements SettingsPanel {
 		tfBuildName.setText(applicationInfo.getName());
 		tfVersion.setText(applicationInfo.getVersion());
 		tfBuildTimestamp.setText(DateFormat.getDateTimeInstance().format(applicationInfo.getBuildTimestampDate()));
+		tfWorkingDir.setText(Paths.get(".").toAbsolutePath().normalize().toString());
 	}
 
 	@Override
