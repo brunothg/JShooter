@@ -17,8 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "custom")
 public class UserProperties {
-	private static final transient Logger LOG = LoggerFactory
-			.getLogger(UserProperties.class);
+	private static final transient Logger LOG = LoggerFactory.getLogger(UserProperties.class);
 
 	private String language;
 	private String lookAndFeel;
@@ -49,6 +48,7 @@ public class UserProperties {
 
 	public void store() throws IOException {
 		Properties properties = new Properties();
+		properties.load(Files.newBufferedReader(Paths.get("./application.properties"), StandardCharsets.UTF_8));
 
 		Field[] fields = UserProperties.class.getDeclaredFields();
 		for (Field field : fields) {
@@ -63,15 +63,12 @@ public class UserProperties {
 				String value = field.get(UserProperties.this).toString();
 
 				properties.setProperty(name, value);
-			} catch (SecurityException | IllegalArgumentException
-					| IllegalAccessException e) {
+			} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
 				LOG.warn("Could not store property '{}'", field);
 			}
 		}
 
-		properties.store(
-				Files.newBufferedWriter(Paths.get("./application.properties"),
-						StandardCharsets.UTF_8),
+		properties.store(Files.newBufferedWriter(Paths.get("./application.properties"), StandardCharsets.UTF_8),
 				"User settings");
 	}
 }

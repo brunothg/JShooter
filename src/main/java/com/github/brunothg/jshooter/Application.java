@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -65,7 +66,7 @@ public class Application {
 	}
 
 	private static void initializeSpring(String[] args) {
-		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(false).run(args);
+		ctx = new SpringApplicationBuilder(Application.class).headless(false).web(WebApplicationType.NONE).run(args);
 	}
 
 	private static void initializeApplication() {
